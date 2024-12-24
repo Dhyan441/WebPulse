@@ -1,0 +1,6 @@
+fastapi==0.115.6
+pip-chill==1.0.3
+pysocks==1.7.1
+requests==2.32.3
+selenium==4.27.1
+uvicorn==0.34.0
