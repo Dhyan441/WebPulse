@@ -10,7 +10,8 @@ def rawData(url: str):
     test = request.urlopen(url)
     return len(test.read())
 
-def getData(url: str, driver):
+async def getData(url: str, driver):
+
     driver.get(url)
     logs = driver.execute_script(
         "return window.performance.getEntries();"

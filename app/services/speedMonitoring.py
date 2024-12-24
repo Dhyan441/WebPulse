@@ -1,6 +1,7 @@
 from selenium import webdriver
 from .ttfb import advCalc, simpleCalc
 from .pageSize import rawData, getData
+from .pageLoad import loadingTime
 
 def selectBrowser(browser: str):
      
@@ -62,15 +63,26 @@ async def get_page_size(url: str, browser):
         driver = selectBrowser(browser)
 
     # Method 2 - getting post render data and transfer size data
-    data = getData(url, driver)
+    data = await getData(url, driver)
     driver.quit()
     return data
     
 
 
 async def get_PageLoad(url: str, browser: str):
+    
+    if not url.startswith("http://") and not url.startswith("https://"):
+        url = "https://" + url 
 
-    print("Success")
+    if (browser == "default"):
+        driver = selectBrowser("chrome")
+    else:
+        driver = selectBrowser(browser)
+
+    time = await loadingTime(url, driver)
+    driver.quit()
+    return time
+
 
 
 async def get_totalRequests(url: str, browser: str):
