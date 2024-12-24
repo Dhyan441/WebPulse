@@ -4,6 +4,7 @@ from selenium import webdriver
 def time_url(driver, url):
     driver.get(url)
 
+
     navigation_start = driver.execute_script(
         "return window.performance.timing.navigationStart")
     dom_complete = driver.execute_script(
@@ -13,7 +14,11 @@ def time_url(driver, url):
     print(f"Time {total_time}ms")
 
 
-driver = webdriver.Firefox()
+
+# options = webdriver.ChromeOptions()
+# options.add_argument('headless')
+# driver = webdriver.Chrome(options)
+driver = webdriver.Chrome()
 
 try:
     url = "https://httpbin.org/delay/"

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
-from app.services.speedMonitoring import get_ttfb, get_page_size, get_PageLoad, get_ServerResponse, get_totalRequests
+from app.services.speedMonitoring import get_ttfb, get_page_size, get_PageLoad, get_totalRequests
 
 
 router = APIRouter()
@@ -10,7 +10,7 @@ router = APIRouter()
 async def ttfb(url: str, browser: str):
 
     try:
-        return {"ttfb": await get_ttfb(url, browser)}
+        return {"ttfb (s)": await get_ttfb(url, browser)}
     
     except ValueError as e:
         return JSONResponse(content={"error": str(e)}, status_code=400)     
@@ -29,13 +29,6 @@ async def total_page_load (url: str, browser: str):
     except ValueError as e:
         return JSONResponse(content={"error": str(e)}, status_code=400) 
 
-@router.get("/serverResponse/")
-async def server_response(url: str, browser: str):
-    try:
-        return {"serverResponse": await get_ServerResponse(url, browser)}
-
-    except ValueError as e:
-        return JSONResponse(content={"error": str(e)}, status_code=400) 
 
 @router.get("/totalRequests/")
 async def total_requests(url: str, browser: str):
