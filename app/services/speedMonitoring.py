@@ -1,6 +1,6 @@
 from selenium import webdriver
 from .ttfb import advCalc, simpleCalc
-
+from .pageSize import rawData, getData
 
 def selectBrowser(browser: str):
      
@@ -37,7 +37,10 @@ async def get_ttfb(url: str, browser: str):
             return await simpleCalc(url)
 
         driver = selectBrowser(browser)
-        return await advCalc(url, driver)
+        ttfb = await advCalc(url, driver)
+        driver.quit()
+
+        return ttfb
 
         print("Success")
 
@@ -46,9 +49,24 @@ async def get_ttfb(url: str, browser: str):
 
 
 
-async def get_page_size(url: str, browser: str):
+async def get_page_size(url: str, browser):
 
-    print("Success")
+    if not url.startswith("http://") and not url.startswith("https://"):
+        url = "https://" + url 
+
+    # Method 1 - read the pages raw data as bytes
+    # return rawBytes(url)
+    if (browser == "default"):
+        driver = selectBrowser("chrome")
+    else:
+        driver = selectBrowser(browser)
+
+    # Method 2 - getting post render data and transfer size data
+    data = getData(url, driver)
+    driver.quit()
+    return data
+    
+
 
 async def get_PageLoad(url: str, browser: str):
 

@@ -16,8 +16,8 @@ async def ttfb(url: str, browser: str):
         return JSONResponse(content={"error": str(e)}, status_code=400)     
 
 @router.get("/pageSize/")
-async def page_size(url: str, browser: str):
-    return {"pageSize": await get_page_size(url, browser)}
+async def page_size(url: str, browser):
+    return {"data": await get_page_size(url, browser)}
  
 
 # More comprehensive and includes all browser-side processes such as resource loading, rendering, and script execution.
