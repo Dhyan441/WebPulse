@@ -27,9 +27,6 @@ async def getData(url: str, driver):
         if 'decodedBodySize' in log:
             renderSize += log['decodedBodySize']
     
-
-    print(renderSize)
-    print(transferSize)
     return {"renderSize": renderSize/1024, "transferSize": transferSize/1024}
 
 

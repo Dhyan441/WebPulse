@@ -2,6 +2,7 @@ from selenium import webdriver
 from .ttfb import advCalc, simpleCalc
 from .pageSize import rawData, getData
 from .pageLoad import loadingTime
+from .pageReq import totalReq
 
 def selectBrowser(browser: str):
      
@@ -34,7 +35,6 @@ async def get_ttfb(url: str, browser: str):
     # if the browser method is not defined just use the simple method
     try:
         if(browser.lower() == "default"):
-            print("default ttfb")
             return await simpleCalc(url)
 
         driver = selectBrowser(browser)
@@ -43,7 +43,6 @@ async def get_ttfb(url: str, browser: str):
 
         return ttfb
 
-        print("Success")
 
     except ValueError as e:
         raise ValueError(e)
@@ -51,51 +50,66 @@ async def get_ttfb(url: str, browser: str):
 
 
 async def get_page_size(url: str, browser):
+    
+    try:
 
-    if not url.startswith("http://") and not url.startswith("https://"):
-        url = "https://" + url 
+        if not url.startswith("http://") and not url.startswith("https://"):
+            url = "https://" + url 
 
-    # Method 1 - read the pages raw data as bytes
-    # return rawBytes(url)
-    if (browser == "default"):
-        driver = selectBrowser("chrome")
-    else:
-        driver = selectBrowser(browser)
+        # Method 1 - read the pages raw data as bytes
+        # return rawBytes(url)
+        if (browser == "default"):
+            driver = selectBrowser("chrome")
+        else:
+            driver = selectBrowser(browser)
 
-    # Method 2 - getting post render data and transfer size data
-    data = await getData(url, driver)
-    driver.quit()
-    return data
+        # Method 2 - getting post render data and transfer size data
+        data = await getData(url, driver)
+        driver.quit()
+        return data
+
+    except ValueError as e:
+        raise ValueError(e)
     
 
 
 async def get_PageLoad(url: str, browser: str):
     
-    if not url.startswith("http://") and not url.startswith("https://"):
-        url = "https://" + url 
+    try:
+        if not url.startswith("http://") and not url.startswith("https://"):
+            url = "https://" + url 
 
-    if (browser == "default"):
-        driver = selectBrowser("chrome")
-    else:
-        driver = selectBrowser(browser)
+        if (browser == "default"):
+            driver = selectBrowser("chrome")
+        else:
+            driver = selectBrowser(browser)
 
-    time = await loadingTime(url, driver)
-    driver.quit()
-    return time
+        time = await loadingTime(url, driver)
+        driver.quit()
+        return time
 
+
+    except ValueError as e:
+        raise ValueError(e)
 
 
 async def get_totalRequests(url: str, browser: str):
-    print("success")
 
+    try:
+        if not url.startswith("http://") and not url.startswith("https://"):
+            url = "https://" + url 
 
-#  def get_server_response_time(url):
-#     driver = webdriver.Firefox()
-#     try:
-#         driver.get(url)
-#         response_time = driver.execute_script(
-#             "return window.performance.timing.responseStart - window.performance.timing.requestStart"
-#         )
-#         print(f"Server response time: {response_time} ms")
-#     finally:
-#         driver.quit()
+        if (browser == "default"):
+            driver = selectBrowser("chrome")
+        else:
+            driver = selectBrowser(browser)
+
+        total = await totalReq(url, driver)
+        driver.quit()
+
+        return total
+
+    
+    except ValueError as e:
+        raise ValueError(e)
+

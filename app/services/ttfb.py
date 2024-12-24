@@ -8,7 +8,6 @@ import time
 async def simpleCalc(url: str):
     response = requests.get(url)
     ttfb = response.elapsed.total_seconds()
-    print(f"Time to First Byte (TTFB): {ttfb} seconds")
     return ttfb
 
 async def advCalc(url: str, driver):

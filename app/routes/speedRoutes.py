@@ -30,11 +30,11 @@ async def total_page_load (url: str, browser: str):
         return JSONResponse(content={"error": str(e)}, status_code=400) 
 
 
-@router.get("/totalRequests/")
-async def total_requests(url: str, browser: str):
+@router.get("/requests/")
+async def requests(url: str, browser: str):
     
     try:
-        return {"totalRequests": await get_totalRequests(url, browser)}
+        return {"requests": await get_totalRequests(url, browser)}
 
     except ValueError as e:
         return JSONResponse(content={"error": str(e)}, status_code=400) 
