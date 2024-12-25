@@ -1,33 +1,33 @@
-import { useState } from 'react'
 import './App.css'
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card"
-import { Skeleton } from "@/components/ui/skeleton"
+import Header from "@/components/header"
+import WebPulseForm from "@/components/web-pulse-form"
+import ResultsDisplay from "@/components/results-display"
+import HistoricalResults from "@/components/historical-results"
+
 
 
 function App() {
 
   return (
-    <>
-    <HoverCard>
-      <HoverCardTrigger className="text-3xl font-bold underline">WebPulse</HoverCardTrigger>
-      <HoverCardContent >
-      Tool for quick and accurate website speed monitoring and performance insights.
-      </HoverCardContent>
-    </HoverCard>
-
-    <div className="flex flex-col space-y-3">
-      <Skeleton className="h-[125px] w-[250px] rounded-xl" />
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[200px]" />
-      </div>
+    <div className="min-h-screen bg-background flex flex-col">
+      <Header />
+      <main className="flex-grow container mx-auto px-4 py-8">
+        <h1 className="text-4xl font-bold mb-2 text-center">WebPulse</h1>
+        <h2 className="text-2xl mb-8 text-center">Website Performance Analysis</h2>
+        <div className="grid gap-8 lg:grid-cols-4">
+          <div className="lg:col-span-3 space-y-8">
+            <WebPulseForm />
+            <ResultsDisplay />
+          </div>
+          <div className="lg:col-span-1">
+            <HistoricalResults />
+          </div>
+        </div>
+      </main>
+      <footer className="bg-muted py-4 text-center text-sm">
+        © 2023 WebPulse. All rights reserved.
+      </footer>
     </div>
-  
-    </>
   )
 }
 
