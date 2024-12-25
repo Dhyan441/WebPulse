@@ -65,7 +65,7 @@ export default function ResultsDisplay() {
       </div>
       <div className="flex justify-center">
         <Button onClick={toggleBenchmark} size="lg">
-          {benchmark ? "Hide Benchmark" : "Compare to Benchmark"}
+          {benchmark ? "Remove Benchmark" : "Add to Benchmark"}
         </Button>
       </div>
     </div>
