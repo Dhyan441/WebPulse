@@ -25,7 +25,7 @@ function App() {
         </div>
       </main>
       <footer className="bg-muted py-4 text-center text-sm">
-        © 2023 WebPulse. All rights reserved.
+        © 2024 WebPulse.
       </footer>
     </div>
   )
