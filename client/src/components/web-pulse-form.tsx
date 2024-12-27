@@ -1,11 +1,8 @@
-"use client"
-
-import { useState } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -14,24 +11,26 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+} from "@/components/ui/select";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useGlobalContext } from "@/context";
 
 const formSchema = z.object({
   url: z.string().url({ message: "Please enter a valid URL" }),
   browser: z.string(),
-})
+});
 
 export default function WebPulseForm() {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const { setUrl, setBrowser } = useGlobalContext();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,16 +38,17 @@ export default function WebPulseForm() {
       url: "",
       browser: "",
     },
-  })
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoading(true)
-    // Here you would typically send the data to your backend
-    console.log(values)
+    setIsLoading(true);
+    setUrl(values.url);
+    setBrowser(values.browser);
+    console.log("URL set to:", values.url);
+    console.log("Browser set to:", values.browser);
     setTimeout(() => {
-      setIsLoading(false)
-      // Here you would typically update the results state
-    }, 2000)
+      setIsLoading(false);
+    }, 2000);
   }
 
   return (
@@ -111,6 +111,5 @@ export default function WebPulseForm() {
         </Form>
       </CardContent>
     </Card>
-  )
+  );
 }
-

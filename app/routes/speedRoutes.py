@@ -42,7 +42,7 @@ async def requests(url: str, browser: str):
 @router.get("/performanceData/")
 async def allSiteData(url: str, browser: str):
     try:
-        return {"ttfb (s)": await get_ttfb(url, browser), "pageSize": await get_page_size(url, browser), "loadTime": await get_PageLoad(url, browser), "requests": await get_totalRequests(url, browser)}
+        return {"ttfb": await get_ttfb(url, browser), "pageSize": await get_page_size(url, browser), "loadTime": await get_PageLoad(url, browser), "requests": await get_totalRequests(url, browser)}
     
     except ValueError as e:
         return JSONResponse(content={"error": str(e)}, status_code=400)
