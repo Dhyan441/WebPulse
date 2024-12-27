@@ -36,7 +36,7 @@ export default function HistoricalResults() {
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle>Historical Results</CardTitle>
+        <CardTitle>Benchmarks</CardTitle>
       </CardHeader>
       <CardContent>
         <ul className="space-y-4">
