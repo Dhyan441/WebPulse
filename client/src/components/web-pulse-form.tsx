@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useGlobalContext } from "@/context";
+import { useGlobalContext } from "@/context/context";
 
 const formSchema = z.object({
   url: z.string().url({ message: "Please enter a valid URL" }),

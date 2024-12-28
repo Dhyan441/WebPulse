@@ -1,59 +1,45 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-
-type HistoricalResult = {
-  url: string
-  ttfb: number
-  pageSize: number
-  loadTime: number
-  requests: number
-}
-
-const historicalData: HistoricalResult[] = [
-  {
-    url: "example.com",
-    ttfb: 0.22,
-    pageSize: 1.8,
-    loadTime: 2.5,
-    requests: 50,
-  },
-  {
-    url: "another-site.com",
-    ttfb: 0.18,
-    pageSize: 1.3,
-    loadTime: 2.1,
-    requests: 42,
-  },
-  {
-    url: "test-website.org",
-    ttfb: 0.25,
-    pageSize: 2.1,
-    loadTime: 2.8,
-    requests: 55,
-  },
-]
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useBenchmarkContext } from "@/context/benchmark";
 
 export default function HistoricalResults() {
+  const { benchmarks } = useBenchmarkContext();
+  const latestBenchmarks = benchmarks.slice(-4).reverse();
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleString(undefined, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
   return (
     <Card className="h-full">
       <CardHeader>
         <CardTitle>Benchmarks</CardTitle>
       </CardHeader>
       <CardContent>
-        <ul className="space-y-4">
-          {historicalData.map((result, index) => (
-            <li key={index} className="border-b pb-2 last:border-b-0">
-              <h4 className="font-semibold text-sm">{result.url}</h4>
-              <div className="grid grid-cols-2 gap-x-2 text-xs text-muted-foreground mt-1">
-                <div>TTFB: {result.ttfb.toFixed(2)}s</div>
-                <div>Size: {result.pageSize.toFixed(1)} MB</div>
-                <div>Load: {result.loadTime.toFixed(1)}s</div>
-                <div>Requests: {result.requests}</div>
+        <ul className="space-y-6">
+          {latestBenchmarks.map((benchmark, index) => (
+            <li key={index} className="border-b pb-4 last:border-b-0">
+              <h4 className="font-semibold text-sm mb-1">{benchmark.url}</h4>
+              <div className="text-xs text-muted-foreground space-y-1 mb-2">
+                <p>{formatDate(benchmark.timestamp)}</p>
+                <p>Browser: {benchmark.browser}</p>
+              </div>
+              <div className="grid grid-cols-2 gap-x-2 gap-y-1 text-xs">
+                <div>TTFB: {benchmark.data.ttfb.toFixed(2)}s</div>
+                <div>Size: {benchmark.data.pageSize.toFixed(1)} MB</div>
+                <div>Load: {benchmark.data.loadTime.toFixed(1)}s</div>
+                <div>Requests: {benchmark.data.requests}</div>
               </div>
             </li>
           ))}
         </ul>
       </CardContent>
     </Card>
-  )
+  );
 }
 
