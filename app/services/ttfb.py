@@ -3,8 +3,6 @@ import time
 
 
 
-#simple solution
-
 async def simpleCalc(url: str):
     response = requests.get(url)
     ttfb = response.elapsed.total_seconds()
@@ -21,8 +19,7 @@ async def advCalc(url: str, driver):
         "return window.performance.timing.responseStart"
     )
 
-    # Calculate Time to First Byte (TTFB)
-    ttfb = (responseStart - requestStart)/1000 #convert from milliseconds
+    ttfb = (responseStart - requestStart)/1000
     return ttfb
 
 

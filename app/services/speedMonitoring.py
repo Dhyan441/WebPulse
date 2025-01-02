@@ -32,7 +32,6 @@ async def get_ttfb(url: str, browser: str):
 
     if not url.startswith("http://") and not url.startswith("https://"):
         url = "https://" + url 
-    # if the browser method is not defined just use the simple method
     try:
         if(browser.lower() == "default"):
             return await simpleCalc(url)
@@ -56,14 +55,11 @@ async def get_page_size(url: str, browser):
         if not url.startswith("http://") and not url.startswith("https://"):
             url = "https://" + url 
 
-        # Method 1 - read the pages raw data as bytes
-        # return rawBytes(url)
         if (browser == "default"):
             driver = selectBrowser("chrome")
         else:
             driver = selectBrowser(browser)
 
-        # Method 2 - getting post render data and transfer size data
         data = await getData(url, driver)
         driver.quit()
         return data

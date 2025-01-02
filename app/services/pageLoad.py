@@ -14,6 +14,5 @@ async def loadingTime(url: str, driver):
     requestStart = timing['requestStart']
     domComplete = timing['domComplete']
 
-    # Calculate Time to First Byte (TTFB)
-    loadTime = (domComplete - requestStart)/1000 #convert from milliseconds
+    loadTime = (domComplete - requestStart)/1000
     return loadTime

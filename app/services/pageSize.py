@@ -4,7 +4,6 @@ from selenium import webdriver
 
 def rawData(url: str):
 
-    #size of the HMTL/code does not account for the actual rendering and images and stuff
     url = "https://google.com"
 
     test = request.urlopen(url)
@@ -20,7 +19,6 @@ async def getData(url: str, driver):
     transferSize = 0
     renderSize = 0
 
-    # Loop through each log entry and extract the required fields
     for log in logs:
         if 'transferSize' in log:
             transferSize += log['transferSize']

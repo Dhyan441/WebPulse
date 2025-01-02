@@ -5,7 +5,6 @@ from app.services.speedMonitoring import get_ttfb, get_page_size, get_PageLoad, 
 
 router = APIRouter()
 
-# Time from request to reciveing the first byte, including DNS lookup, connection time and server response time
 @router.get("/ttfb/")
 async def ttfb(url: str, browser: str):
 
@@ -20,7 +19,6 @@ async def page_size(url: str, browser):
     return {"data": await get_page_size(url, browser)}
  
 
-# More comprehensive and includes all browser-side processes such as resource loading, rendering, and script execution.
 @router.get("/totalPageLoad/")
 async def total_page_load (url: str, browser: str):
     try:
