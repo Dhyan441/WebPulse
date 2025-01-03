@@ -2,6 +2,9 @@
 
 **WebPulse** is a website performance analysis tool that allows developers to test the speed of their websites locally. It provides detailed metrics such as **Time to First Byte (TTFB)**, page size, total page load time, and the number of requests made by the page. The tool uses **FastAPI** for the backend and **React with TypeScript** for the frontend.
 
+<img width="1504" alt="image" src="https://github.com/user-attachments/assets/82130b7d-643f-4899-a2c9-4a824ab635e9" />
+
+
 ## Features
 
 - Analyze website performance metrics, including:
